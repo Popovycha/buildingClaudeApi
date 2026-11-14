@@ -1,0 +1,17 @@
+[
+  {
+    "task": "Write a Python function called `get_untagged_ec2_instances` that takes a region name as a string and returns a list of instance IDs for all EC2 instances that do not have a tag with the key 'Environment'. Use boto3 and handle pagination.",
+    "format": "python",
+    "solution_criteria": "The function must be named `get_untagged_ec2_instances` and accept one parameter for the region. It must create a boto3 EC2 client for the given region and use a paginator (or handle NextToken manually) for describe_instances. It must iterate through all reservations and instances and check each instance's Tags list, treating a missing Tags key as no tags. It must return a list of instance ID strings only for instances lacking the 'Environment' tag key, and must not include instances that have the tag, whatever its value."
+  },
+  {
+    "task": "Create an IAM policy JSON document that grants read-only access (GetObject and ListBucket) to an S3 bucket named 'analytics-data-prod', restricted to objects under the prefix 'reports/'. Access to any other prefix must not be allowed.",
+    "format": "json",
+    "solution_criteria": "The output must be valid JSON with Version '2012-10-17' and a Statement array. It must allow s3:GetObject on the resource 'arn:aws:s3:::analytics-data-prod/reports/*'. It must allow s3:ListBucket on the resource 'arn:aws:s3:::analytics-data-prod' with a Condition using StringLike on 's3:prefix' that matches 'reports/*' (or 'reports/'). It must not grant write or delete actions, and must not use a wildcard for the bucket name or for all actions."
+  },
+  {
+    "task": "Write a regular expression that matches a valid AWS Lambda function ARN, capturing the region, the 12-digit account ID, and the function name. The ARN format is 'arn:aws:lambda:<region>:<account-id>:function:<function-name>'. The function name can contain letters, numbers, hyphens, and underscores. Qualifiers (versions or aliases) do not need to be handled.",
+    "format": "regex",
+    "solution_criteria": "The regex must match strings such as 'arn:aws:lambda:us-east-1:123456789012:function:my-function_1'. It must anchor the start and end of the string (^ and $). It must use three capture groups: region (e.g. [a-z]{2}-[a-z]+-\\d), account ID (exactly 12 digits, \\d{12}), and function name ([a-zA-Z0-9_-]+). It must escape or correctly handle literal characters, and must not match ARNs with a different service, an account ID that is not exactly 12 digits, or a function name containing invalid characters."
+  }
+]
